@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block body %}
+    
+    <div class="container my-5">
+        <h2>Add To Do</h2>
+        <form action="/" method="POST">
+            <div class="mb-3">
+              <label for="AddToDo" class="form-label">Add To Do</label>
+              <input type="text" class="form-control" name="title" id="AddToDo" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+              <label for="AddDesc" class="form-label">Add Description</label>
+              <input type="text" class="form-control" name="description" id="AddDesc" >
+            </div>
+            <button type="submit" class="btn btn-primary">Add</button>
+          </form>
+    </div>
+    <div class="container my-5">
+    {% if allTodo|length == 0 %}
+              <div class="alert alert-primary" role="alert">
+                There is no task added please add the task
+              </div>
+              {% else %}
+              
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Sr.No</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      {% for todo in allTodo %}
+                      <a>
+                        <th scope="row">{{loop.index}}</th>
+                        <td>{{todo.title}}</td>
+                        <td>{{todo.description}}</td>
+                        <td>{{todo.created_at}}</td>
+                        <td>
+                          <a href='/update/{{todo.srno}}'><button type="button" class="btn btn-outline-dark btn-sm">Update</button></a>
+                          <a href='/delete/{{todo.srno}}'><button type="button" class="btn btn-outline-dark btn-sm">Delete</button></td></a>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+            </div>
+              {% endif %}
+{% endblock body %}
